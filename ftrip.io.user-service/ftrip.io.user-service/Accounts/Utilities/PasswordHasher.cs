@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ftrip.io.user_service.Accounts.Utilities
 {
-    public class PasswordHasher
+    public static class PasswordHasher
     {
         public static string Hash(string password, string salt)
         {

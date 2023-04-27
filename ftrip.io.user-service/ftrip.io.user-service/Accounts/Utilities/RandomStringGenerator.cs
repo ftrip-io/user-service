@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace ftrip.io.user_service.Accounts.Utilities
 {
-    public class RandomStringGenerator
+    public static class RandomStringGenerator
     {
         public static string Generate(int length)
         {

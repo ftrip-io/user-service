@@ -59,7 +59,7 @@ namespace ftrip.io.user_service
             app.UseRouting();
 
             app.UseCors(policy => policy
-                .AllowAnyOrigin()
+                .WithOrigins(Environment.GetEnvironmentVariable("API_PROXY_URL"))
                 .AllowAnyMethod()
                 .AllowAnyHeader()
             );
