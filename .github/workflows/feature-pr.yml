@@ -87,29 +87,29 @@ jobs:
             --no-build \
             --no-restore \
             -c ${{ env.CONFIGURATION }}
-          # dotnet3 test ftrip.io.user-service/ftrip.io.user-service.unit-tests/ftrip.io.user-service.unit-tests.csproj \
-            # --no-build \
-            # --no-restore \
-            # -c ${{ env.CONFIGURATION }} \
-            # --collect:"XPlat Code Coverage" \
-            # --results-directory TestResults/ \
-            # --logger "trx;LogFileName=unittests.trx" \
-            # -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-          # reportgenerator \
-           # -reports:TestResults/**/coverage.opencover.xml \
-           # -targetdir:code-coverage \
-           # -reporttypes:Html
+          dotnet3 test ftrip.io.user-service/ftrip.io.user-service.unit-tests/ftrip.io.user-service.unit-tests.csproj \
+            --no-build \
+            --no-restore \
+            -c ${{ env.CONFIGURATION }} \
+            --collect:"XPlat Code Coverage" \
+            --results-directory TestResults/ \
+            --logger "trx;LogFileName=unittests.trx" \
+            -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          reportgenerator \
+           -reports:TestResults/**/coverage.opencover.xml \
+           -targetdir:code-coverage \
+           -reporttypes:Html
 
           sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
-      # - name: Publish Test Results
-        # uses: EnricoMi/publish-unit-test-result-action/composite@v2
-        # with:
-          # files: |
-            # TestResults/**/*.trx
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        with:
+          files: |
+            TestResults/**/*.trx
 
-      # - name: Upload Code Coverage artifact
-        # uses: actions/upload-artifact@v3
-        # with:
-          # name: Code Coverage
-          # path: code-coverage
+      - name: Upload Code Coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Code Coverage
+          path: code-coverage

@@ -8,12 +8,14 @@ using ftrip.io.framework.messaging.Installers;
 using ftrip.io.framework.Persistence.Sql.Mariadb;
 using ftrip.io.framework.Swagger;
 using ftrip.io.framework.Validation;
+using ftrip.io.user_service.Installers;
 using ftrip.io.user_service.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace ftrip.io.user_service
 {
@@ -33,13 +35,14 @@ namespace ftrip.io.user_service
 
             InstallerCollection.With(
                 new SwaggerInstaller<Startup>(services),
+                new GlobalizationInstaller<Startup>(services),
                 new AutoMapperInstaller<Startup>(services),
                 new FluentValidationInstaller<Startup>(services),
-                new GlobalizationInstaller<Startup>(services),
                 new JwtAuthenticationInstaller(services),
                 new MariadbInstaller<DatabaseContext>(services),
                 new CQRSInstaller<Startup>(services),
-                new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer)
+                new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer),
+                new DependenciesIntaller(services)
             ).Install();
         }
 
@@ -54,6 +57,12 @@ namespace ftrip.io.user_service
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy
+                .WithOrigins(Environment.GetEnvironmentVariable("API_PROXY_URL"))
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
 
             app.UseAuthentication();
             app.UseAuthorization();
