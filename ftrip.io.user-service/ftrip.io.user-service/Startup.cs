@@ -6,6 +6,7 @@ using ftrip.io.framework.Installers;
 using ftrip.io.framework.Mapping;
 using ftrip.io.framework.messaging.Installers;
 using ftrip.io.framework.Persistence.Sql.Mariadb;
+using ftrip.io.framework.Secrets;
 using ftrip.io.framework.Swagger;
 using ftrip.io.framework.Validation;
 using ftrip.io.user_service.Installers;
@@ -38,6 +39,7 @@ namespace ftrip.io.user_service
                 new GlobalizationInstaller<Startup>(services),
                 new AutoMapperInstaller<Startup>(services),
                 new FluentValidationInstaller<Startup>(services),
+                new EnviromentSecretsManagerInstaller(services),
                 new JwtAuthenticationInstaller(services),
                 new MariadbInstaller<DatabaseContext>(services),
                 new CQRSInstaller<Startup>(services),
