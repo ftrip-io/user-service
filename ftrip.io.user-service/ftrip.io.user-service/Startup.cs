@@ -2,6 +2,7 @@ using ftrip.io.framework.auth;
 using ftrip.io.framework.CQRS;
 using ftrip.io.framework.ExceptionHandling.Extensions;
 using ftrip.io.framework.Globalization;
+using ftrip.io.framework.HealthCheck;
 using ftrip.io.framework.Installers;
 using ftrip.io.framework.Mapping;
 using ftrip.io.framework.messaging.Installers;
@@ -36,12 +37,14 @@ namespace ftrip.io.user_service
 
             InstallerCollection.With(
                 new SwaggerInstaller<Startup>(services),
+                new HealthCheckUIInstaller(services),
                 new GlobalizationInstaller<Startup>(services),
                 new AutoMapperInstaller<Startup>(services),
                 new FluentValidationInstaller<Startup>(services),
                 new EnviromentSecretsManagerInstaller(services),
                 new JwtAuthenticationInstaller(services),
                 new MariadbInstaller<DatabaseContext>(services),
+                new MariadbHealthCheckInstaller(services),
                 new CQRSInstaller<Startup>(services),
                 new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer),
                 new DependenciesIntaller(services)
@@ -77,6 +80,7 @@ namespace ftrip.io.user_service
             });
 
             app.UseFtripioSwagger(Configuration.GetSection(nameof(SwaggerUISettings)).Get<SwaggerUISettings>());
+            app.UseFtripioHealthCheckUI(Configuration.GetSection(nameof(HealthCheckUISettings)).Get<HealthCheckUISettings>());
         }
     }
 }
