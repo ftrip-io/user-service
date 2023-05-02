@@ -4,9 +4,9 @@
     ".NETCoreApp,Version=v3.1": {
       "ftrip.io.framework": {
         "type": "Direct",
-        "requested": "[2.1.0, )",
-        "resolved": "2.1.0",
-        "contentHash": "6ht3viBtJfMrBe/WitIgUzEnC1RhSjGoRK4LG1szSeP2bNiora8k7d28sQLYwL10aHOz+BIosImZEcesgf9SKQ==",
+        "requested": "[2.2.0, )",
+        "resolved": "2.2.0",
+        "contentHash": "r6Ig2jfRg8M2gSUFKXoi0tU1enLR1Wrs0w4cMehqsAb1ZWz4Mw2/EWkl9y0rtxjgC3T6eX+x9Z1UTt2upIFbtA==",
         "dependencies": {
           "AspNetCore.HealthChecks.MongoDb": "3.1.3",
           "AspNetCore.HealthChecks.MySql": "3.1.1",
@@ -29,24 +29,24 @@
       },
       "ftrip.io.framework.auth": {
         "type": "Direct",
-        "requested": "[2.1.0, )",
-        "resolved": "2.1.0",
-        "contentHash": "Je9NxrkhB1kqi7otyGKPaFaIjYcyLKuFq7oEGFb+XFSw58p4wu4bU7m4Ue2SVpPwYQG59B/3gIoHzYGvwRtvig==",
+        "requested": "[2.2.0, )",
+        "resolved": "2.2.0",
+        "contentHash": "J0jE/ELOWm0krQ89IQYWGEr81UM3hB7QDPeRraxIrinp+9a79Bw+ABG8olV4Qzt/CEnzk8pwuHO1fOevE/bigA==",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.32",
-          "ftrip.io.framework": "2.1.0"
+          "ftrip.io.framework": "2.2.0"
         }
       },
       "ftrip.io.framework.messaging": {
         "type": "Direct",
-        "requested": "[2.1.0, )",
-        "resolved": "2.1.0",
-        "contentHash": "mhKaXeT/oTzV9A2zLZxLbpdUVXQLxQdpdZjnmaTIh+CUTJyM59mzYWjdYGnCYAhLEHGlFD+e6T4CHaNblqzHnw==",
+        "requested": "[2.2.0, )",
+        "resolved": "2.2.0",
+        "contentHash": "ZHbuw5tysn4rBAysvy+pqF1ttNB22hxRqGY1udXirT25GL7H63+D0kl8Nwu5B9tzNk+LpW/Go+0O9qro5JneAQ==",
         "dependencies": {
           "MassTransit": "7.3.1",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.RabbitMQ": "7.3.1",
-          "ftrip.io.framework": "2.1.0"
+          "ftrip.io.framework": "2.2.0"
         }
       },
       "Microsoft.EntityFrameworkCore.Tools": {
@@ -1856,8 +1856,8 @@
       "ftrip.ip.user-service.contracts": {
         "type": "Project",
         "dependencies": {
-          "ftrip.io.framework": "2.1.0",
-          "ftrip.io.framework.messaging": "2.1.0"
+          "ftrip.io.framework": "2.2.0",
+          "ftrip.io.framework.messaging": "2.2.0"
         }
       }
     }
