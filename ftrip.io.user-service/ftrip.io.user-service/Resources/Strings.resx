@@ -123,6 +123,9 @@
   <data name="Accounts_Validation_DuplicateUsername" xml:space="preserve">
     <value>Username: {0} is already taken.</value>
   </data>
+  <data name="Accounts_Validation_InvalidCurrentPassword" xml:space="preserve">
+    <value>Given password does not match current password.</value>
+  </data>
   <data name="Common_MissingEntity" xml:space="preserve">
     <value>Entity with given id: {0} does not exist in the system.</value>
   </data>
