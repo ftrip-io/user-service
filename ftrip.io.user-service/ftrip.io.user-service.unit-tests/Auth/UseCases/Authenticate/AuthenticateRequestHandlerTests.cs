@@ -38,7 +38,7 @@ namespace ftrip.io.user_service.unit_tests.Auth.UseCases.Authenticate
         [Fact]
         public void Handle_AccountDoesNotExist_ThrowsException()
         {
-            // Assert
+            // Arrange
             var request = GetAuthenticateRequest();
 
             // Act
@@ -51,7 +51,7 @@ namespace ftrip.io.user_service.unit_tests.Auth.UseCases.Authenticate
         [Fact]
         public void Handle_CurrentPasswordDoesNotMatch_ThrowsException()
         {
-            // Assert
+            // Arrange
             var request = GetAuthenticateRequest();
 
             _accountRepositoryMock
@@ -78,7 +78,7 @@ namespace ftrip.io.user_service.unit_tests.Auth.UseCases.Authenticate
         [Fact]
         public async Task Handle_Successful_ReturnsAccount()
         {
-            // Assert
+            // Arrange
             var request = GetAuthenticateRequest();
 
             _accountRepositoryMock

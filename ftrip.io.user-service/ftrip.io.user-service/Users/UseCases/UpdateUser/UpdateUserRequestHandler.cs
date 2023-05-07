@@ -1,7 +1,9 @@
 ﻿using ftrip.io.framework.ExceptionHandling.Exceptions;
 using ftrip.io.framework.Globalization;
+using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.Persistence.Contracts;
 using ftrip.io.user_service.Users.Domain;
+using ftrip.io.user_service.contracts.Users.Events;
 using MediatR;
 using System;
 using System.Threading;
@@ -14,15 +16,18 @@ namespace ftrip.io.user_service.Users.UseCases.UpdateUser
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IStringManager _stringManager;
+        private readonly IMessagePublisher _messagePublisher;
 
         public UpdateUserRequestHandler(
             IUnitOfWork unitOfWork,
             IUserRepository userRepository,
-            IStringManager stringManager)
+            IStringManager stringManager,
+            IMessagePublisher messagePublisher)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
             _stringManager = stringManager;
+            _messagePublisher = messagePublisher;
         }
 
         public async Task<User> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
@@ -38,6 +43,8 @@ namespace ftrip.io.user_service.Users.UseCases.UpdateUser
             await _userRepository.Update(existingUser, cancellationToken);
             await _unitOfWork.Commit(cancellationToken);
 
+            await PublishUserUpdatedEvent(existingUser, cancellationToken);
+
             return existingUser;
         }
 
@@ -50,6 +57,19 @@ namespace ftrip.io.user_service.Users.UseCases.UpdateUser
             }
 
             return user;
+        }
+
+        private async Task PublishUserUpdatedEvent(User user, CancellationToken cancellationToken)
+        {
+            var userUpdated = new UserUpdatedEvent()
+            {
+                UserId = user.Id.ToString(),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            };
+
+            await _messagePublisher.Send<UserUpdatedEvent, string>(userUpdated, cancellationToken);
         }
     }
 }

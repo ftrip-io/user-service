@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.2.0" />
-    <PackageReference Include="ftrip.io.framework.auth" Version="2.2.0" />
-    <PackageReference Include="ftrip.io.framework.messaging" Version="2.2.0" />
+    <PackageReference Include="ftrip.io.framework" Version="2.3.0" />
+    <PackageReference Include="ftrip.io.framework.auth" Version="2.3.0" />
+    <PackageReference Include="ftrip.io.framework.messaging" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ftrip.ip.user-service.contracts\ftrip.ip.user-service.contracts.csproj" />
+    <ProjectReference Include="..\ftrip.io.user-service.contracts\ftrip.io.user-service.contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
