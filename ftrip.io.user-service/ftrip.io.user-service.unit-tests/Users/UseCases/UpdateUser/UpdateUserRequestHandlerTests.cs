@@ -1,10 +1,12 @@
 ﻿using FluentAssertions;
 using ftrip.io.framework.ExceptionHandling.Exceptions;
 using ftrip.io.framework.Globalization;
+using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.Persistence.Contracts;
 using ftrip.io.user_service.Users;
 using ftrip.io.user_service.Users.Domain;
 using ftrip.io.user_service.Users.UseCases.UpdateUser;
+using ftrip.io.user_service.contracts.Users.Events;
 using Moq;
 using System;
 using System.Threading;
@@ -18,6 +20,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
         private readonly Mock<IStringManager> _stringManagerMock = new Mock<IStringManager>();
+        private readonly Mock<IMessagePublisher> _messagePublisherMock = new Mock<IMessagePublisher>();
 
         private readonly UpdateUserRequestHandler _handler;
 
@@ -26,14 +29,15 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
             _handler = new UpdateUserRequestHandler(
                 _unitOfWorkMock.Object,
                 _userRepositoryMock.Object,
-                _stringManagerMock.Object
+                _stringManagerMock.Object,
+                _messagePublisherMock.Object
             );
         }
 
         [Fact]
         public void Handle_UserDoesNotExist_ThrowsException()
         {
-            // Assert
+            // Arrange
             var request = GetUpdateUserRequest();
 
             // Act
@@ -47,7 +51,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
         [Fact]
         public async Task Handle_Successful_ReturnsUser()
         {
-            // Assert
+            // Arrange
             var request = GetUpdateUserRequest();
 
             _userRepositoryMock
@@ -74,6 +78,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
             updatedUser.Email.Should().Be(request.Email);
             updatedUser.City.Should().Be(request.City);
             _unitOfWorkMock.Verify(uow => uow.Commit(It.IsAny<CancellationToken>()), Times.Once);
+            _messagePublisherMock.Verify(mp => mp.Send<UserUpdatedEvent, string>(It.IsAny<UserUpdatedEvent>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         private UpdateUserRequest GetUpdateUserRequest()

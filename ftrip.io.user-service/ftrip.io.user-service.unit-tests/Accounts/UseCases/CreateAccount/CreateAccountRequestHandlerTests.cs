@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ftrip.io.user_service.unit_tests.Account.CreateAccount
+namespace ftrip.io.user_service.unit_tests.Accounts.UseCases.CreateAccount
 {
     public class CreateAccountRequestHandlerTests
     {
@@ -30,7 +30,7 @@ namespace ftrip.io.user_service.unit_tests.Account.CreateAccount
         [Fact]
         public void Handle_UsernameIsTaken_ThrowsException()
         {
-            // Assert
+            // Arrange
             var request = GetCreateAccountRequest();
 
             _accountRepositoryMock
@@ -52,7 +52,7 @@ namespace ftrip.io.user_service.unit_tests.Account.CreateAccount
         [Fact]
         public async Task Handle_Successful_ReturnsAccount()
         {
-            // Assert
+            // Arrange
             var request = GetCreateAccountRequest();
 
             _accountRepositoryMock
