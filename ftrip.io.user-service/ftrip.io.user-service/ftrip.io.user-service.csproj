@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.3.0" />
-    <PackageReference Include="ftrip.io.framework.auth" Version="2.3.0" />
-    <PackageReference Include="ftrip.io.framework.messaging" Version="2.3.0" />
+    <PackageReference Include="ftrip.io.framework" Version="2.4.0" />
+    <PackageReference Include="ftrip.io.framework.auth" Version="2.4.0" />
+    <PackageReference Include="ftrip.io.framework.messaging" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
