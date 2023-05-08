@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>ftrip.ip.user_service.contracts</RootNamespace>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+
+    <Description>This library contains all necessary user-service contracts such as events, commands, and requests/responses that can be used for handling/communicating in other services.</Description>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Authors>ftrip.io</Authors>
+
+    <Copyright>Ftrip.io 2023</Copyright>
+
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
+
+    <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
+
+    <PackageTags>ftrip.io, user-service, contracts</PackageTags>
+
+    <PackageReleaseNotes>Initial version with User events.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <PackageReference Include="ftrip.io.framework" Version="2.4.0" />
+    <PackageReference Include="ftrip.io.framework.messaging" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <ProjectReference Include="..\..\..\framework\ftrip.io.framework\ftrip.io.framework\ftrip.io.framework.csproj" />
+    <ProjectReference Include="..\..\..\framework\ftrip.io.framework\ftrip.io.framework.messaging\ftrip.io.framework.messaging.csproj" />
+  </ItemGroup>
+
+</Project>

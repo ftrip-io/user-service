@@ -4,9 +4,9 @@
     ".NETCoreApp,Version=v3.1": {
       "ftrip.io.framework": {
         "type": "Direct",
-        "requested": "[2.2.0, )",
-        "resolved": "2.2.0",
-        "contentHash": "r6Ig2jfRg8M2gSUFKXoi0tU1enLR1Wrs0w4cMehqsAb1ZWz4Mw2/EWkl9y0rtxjgC3T6eX+x9Z1UTt2upIFbtA==",
+        "requested": "[2.4.0, )",
+        "resolved": "2.4.0",
+        "contentHash": "WdzXrkmu8fa2QfAzYX+3u1gm7g6FL8qUkEDkS0RaHvm1i91MGgP9Dncbryh8lUkOP1xLvwUfBN2J8YKwxmb72A==",
         "dependencies": {
           "AspNetCore.HealthChecks.MongoDb": "3.1.3",
           "AspNetCore.HealthChecks.MySql": "3.1.1",
@@ -29,24 +29,33 @@
       },
       "ftrip.io.framework.auth": {
         "type": "Direct",
-        "requested": "[2.2.0, )",
-        "resolved": "2.2.0",
-        "contentHash": "J0jE/ELOWm0krQ89IQYWGEr81UM3hB7QDPeRraxIrinp+9a79Bw+ABG8olV4Qzt/CEnzk8pwuHO1fOevE/bigA==",
+        "requested": "[2.4.0, )",
+        "resolved": "2.4.0",
+        "contentHash": "Eehe1fa1yiMmxE5q84qcjIOOLpfoPkA6aaO7jjyPPvJKBGb09wUbsJ/53R3oX2HjH7V0Ci3Z2xtuzQ/YOtG1Gg==",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.32",
-          "ftrip.io.framework": "2.2.0"
+          "ftrip.io.framework": "2.4.0"
         }
       },
       "ftrip.io.framework.messaging": {
         "type": "Direct",
-        "requested": "[2.2.0, )",
-        "resolved": "2.2.0",
-        "contentHash": "ZHbuw5tysn4rBAysvy+pqF1ttNB22hxRqGY1udXirT25GL7H63+D0kl8Nwu5B9tzNk+LpW/Go+0O9qro5JneAQ==",
+        "requested": "[2.4.0, )",
+        "resolved": "2.4.0",
+        "contentHash": "dm8HhwSDRs4B5wkbrBBSK/4N+LSF8alDTa1PXsAJFfepg7ca/lJ9l9TOx3YRjrnjnSDwX8Kca+nKspoj1Hykog==",
         "dependencies": {
           "MassTransit": "7.3.1",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.RabbitMQ": "7.3.1",
-          "ftrip.io.framework": "2.2.0"
+          "ftrip.io.framework": "2.4.0"
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational": {
+        "type": "Direct",
+        "requested": "[3.1.32, )",
+        "resolved": "3.1.32",
+        "contentHash": "ex5Dr6GzZdzAiJoGRPxubSDLMSIzmMa4Cxea4eFMb8tSvfv+AUhlKIasU7WMq0v9qlqudbf5tiUAdhoehiv+iw==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.32"
         }
       },
       "Microsoft.EntityFrameworkCore.Tools": {
@@ -381,14 +390,6 @@
         "contentHash": "15yG62bSLSDAz4iHjKEdNKio+IytLtH6XCdoWKkES8n2S3gUyWuf3H8kfI9+TntTejxNNsmPcyaBjsPtDjS9XQ==",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "3.1.3"
-        }
-      },
-      "Microsoft.EntityFrameworkCore.Relational": {
-        "type": "Transitive",
-        "resolved": "3.1.32",
-        "contentHash": "ex5Dr6GzZdzAiJoGRPxubSDLMSIzmMa4Cxea4eFMb8tSvfv+AUhlKIasU7WMq0v9qlqudbf5tiUAdhoehiv+iw==",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "3.1.32"
         }
       },
       "Microsoft.EntityFrameworkCore.Relational.Design": {
@@ -1853,11 +1854,11 @@
         "resolved": "0.6.2",
         "contentHash": "jPao/LdUNLUz8rn3H1D8W7wQbZsRZM0iayvWI4xGejJg3XJHT56gcmYdgmCGPdJF1UEBqUjucCRrFB+4HbJsbw=="
       },
-      "ftrip.ip.user-service.contracts": {
+      "ftrip.io.user-service.contracts": {
         "type": "Project",
         "dependencies": {
-          "ftrip.io.framework": "2.2.0",
-          "ftrip.io.framework.messaging": "2.2.0"
+          "ftrip.io.framework": "2.4.0",
+          "ftrip.io.framework.messaging": "2.4.0"
         }
       }
     }
