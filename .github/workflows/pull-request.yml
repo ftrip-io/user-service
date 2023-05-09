@@ -1,8 +1,9 @@
-name: Feature PR to Develop Workflow
+name: PR to develop/master
 on:
   pull_request:
     branches:
       - develop
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
