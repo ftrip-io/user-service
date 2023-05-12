@@ -35,18 +35,24 @@ namespace ftrip.io.user_service
         {
             services.AddControllers();
 
+            if (Environment.GetEnvironmentVariable("IN_TEST_MODE") == null)
+            {
+                InstallerCollection.With(
+                    new SwaggerInstaller<Startup>(services),
+                    new HealthCheckUIInstaller(services),
+                    new EnviromentSecretsManagerInstaller(services),
+                    new JwtAuthenticationInstaller(services),
+                    new MariadbInstaller<DatabaseContext>(services),
+                    new MariadbHealthCheckInstaller(services),
+                    new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer)
+                ).Install();
+            }
+
             InstallerCollection.With(
-                new SwaggerInstaller<Startup>(services),
-                new HealthCheckUIInstaller(services),
                 new GlobalizationInstaller<Startup>(services),
                 new AutoMapperInstaller<Startup>(services),
                 new FluentValidationInstaller<Startup>(services),
-                new EnviromentSecretsManagerInstaller(services),
-                new JwtAuthenticationInstaller(services),
-                new MariadbInstaller<DatabaseContext>(services),
-                new MariadbHealthCheckInstaller(services),
                 new CQRSInstaller<Startup>(services),
-                new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer),
                 new DependenciesIntaller(services)
             ).Install();
         }
