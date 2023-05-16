@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ftrip.io.user-service.contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ftrip.io.user-service.unit-tests", "ftrip.io.user-service.unit-tests\ftrip.io.user-service.unit-tests.csproj", "{7DBE60D4-EB37-4889-AD5B-19A4A4B565D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ftrip.io.user-service.integration-tests", "ftrip.io.user-service.integration-tests\ftrip.io.user-service.integration-tests.csproj", "{0A8841AC-98A1-47AC-B634-11427190C81F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7DBE60D4-EB37-4889-AD5B-19A4A4B565D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DBE60D4-EB37-4889-AD5B-19A4A4B565D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DBE60D4-EB37-4889-AD5B-19A4A4B565D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8841AC-98A1-47AC-B634-11427190C81F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8841AC-98A1-47AC-B634-11427190C81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8841AC-98A1-47AC-B634-11427190C81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8841AC-98A1-47AC-B634-11427190C81F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
