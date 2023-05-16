@@ -36,6 +36,8 @@
         "RMQ_USER": "user",
         "RMQ_PASSWORD": "password",
 
+        "GRAFANA_LOKI_URL": "http://localhost:3100",
+
         "API_PREFIX": "",
 
         "API_PROXY_URL": "http://localhost:3000",

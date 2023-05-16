@@ -12,6 +12,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Serilog;
 
 namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
 {
@@ -21,6 +22,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
         private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
         private readonly Mock<IStringManager> _stringManagerMock = new Mock<IStringManager>();
         private readonly Mock<IMessagePublisher> _messagePublisherMock = new Mock<IMessagePublisher>();
+        private readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
         private readonly UpdateUserRequestHandler _handler;
 
@@ -30,7 +32,8 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
                 _unitOfWorkMock.Object,
                 _userRepositoryMock.Object,
                 _stringManagerMock.Object,
-                _messagePublisherMock.Object
+                _messagePublisherMock.Object,
+                _loggerMock.Object
             );
         }
 
@@ -66,6 +69,10 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
                         City = "Test"
                     })
                 );
+
+            _userRepositoryMock
+               .Setup(r => r.Update(It.IsAny<User>(), It.IsAny<CancellationToken>()))
+               .Returns((User u, CancellationToken _) => Task.FromResult(u));
 
             // Act
             var updatedUser = await _handler.Handle(request, CancellationToken.None);

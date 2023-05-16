@@ -14,6 +14,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Serilog;
 
 namespace ftrip.io.user_service.unit_tests.Users.UseCases.CreateUser
 {
@@ -23,6 +24,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.CreateUser
         private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
         private readonly Mock<IMediator> _mediatorMock = new Mock<IMediator>();
         private readonly Mock<IMessagePublisher> _messagePublisherMock = new Mock<IMessagePublisher>();
+        private readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
         private readonly CreateUserRequestHandler _handler;
 
@@ -38,7 +40,8 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.CreateUser
                 _userRepositoryMock.Object,
                 mapper,
                 _mediatorMock.Object,
-                _messagePublisherMock.Object
+                _messagePublisherMock.Object,
+                _loggerMock.Object
             );
         }
 

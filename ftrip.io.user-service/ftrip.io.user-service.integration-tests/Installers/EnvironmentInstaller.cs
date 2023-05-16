@@ -12,6 +12,7 @@ namespace ftrip.io.user_service.integration_tests.Installers
         public void Install()
         {
             Environment.SetEnvironmentVariable("API_PROXY_URL", "http://localhost");
+            Environment.SetEnvironmentVariable("GRAFANA_LOKI_URL", "http://localhost");
             Environment.SetEnvironmentVariable("JWT_SECRET", "super test secret");
         }
     }
