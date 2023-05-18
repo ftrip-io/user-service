@@ -5,6 +5,7 @@ using ftrip.io.user_service.Accounts;
 using ftrip.io.user_service.Accounts.Domain;
 using ftrip.io.user_service.Accounts.UseCases.CreateAccount;
 using Moq;
+using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace ftrip.io.user_service.unit_tests.Accounts.UseCases.CreateAccount
     {
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
         private readonly Mock<IStringManager> _stringManagerMock = new Mock<IStringManager>();
+        private readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
         private readonly CreateAccountRequestHandler _handler;
 
@@ -23,7 +25,8 @@ namespace ftrip.io.user_service.unit_tests.Accounts.UseCases.CreateAccount
         {
             _handler = new CreateAccountRequestHandler(
                 _accountRepositoryMock.Object,
-                _stringManagerMock.Object
+                _stringManagerMock.Object,
+                _loggerMock.Object
             );
         }
 

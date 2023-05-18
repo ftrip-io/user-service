@@ -3,6 +3,7 @@ using ftrip.io.framework.Globalization;
 using ftrip.io.user_service.Accounts.Domain;
 using ftrip.io.user_service.Accounts.Utilities;
 using MediatR;
+using Serilog;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,13 +13,16 @@ namespace ftrip.io.user_service.Accounts.UseCases.CreateAccount
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IStringManager _stringManager;
+        private readonly ILogger _logger;
 
         public CreateAccountRequestHandler(
             IAccountRepository accountRepository,
-            IStringManager stringManager)
+            IStringManager stringManager,
+            ILogger logger)
         {
             _accountRepository = accountRepository;
             _stringManager = stringManager;
+            _logger = logger;
         }
 
         public async Task<CredentialsAccount> Handle(CreateAccountRequest request, CancellationToken cancellationToken)
@@ -32,6 +36,7 @@ namespace ftrip.io.user_service.Accounts.UseCases.CreateAccount
             var existingAccount = await _accountRepository.ReadByUsername(username, cancellationToken);
             if (existingAccount != null)
             {
+                _logger.Error("Account is already taken - Username[{Username}]", username);
                 throw new BadLogicException(string.Format(_stringManager.GetString("Accounts_Validation_DuplicateUsername"), username));
             }
         }
@@ -47,7 +52,14 @@ namespace ftrip.io.user_service.Accounts.UseCases.CreateAccount
 
             account.HashedPassword = PasswordHasher.Hash(request.Password, account.Salt);
 
-            return await _accountRepository.Create(account, cancellationToken);
+            var createdAccount = await _accountRepository.Create(account, cancellationToken);
+
+            _logger.Information(
+                "Account created - AccountId[{AccountId}], UserId[{UserId}], Username[{Username}]",
+                createdAccount.Id, createdAccount.UserId, createdAccount.Username
+            );
+
+            return createdAccount;
         }
     }
 }

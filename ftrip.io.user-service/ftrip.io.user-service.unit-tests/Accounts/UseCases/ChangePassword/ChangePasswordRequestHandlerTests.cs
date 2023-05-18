@@ -7,6 +7,7 @@ using ftrip.io.user_service.Accounts.Domain;
 using ftrip.io.user_service.Accounts.UseCases.ChangePassword;
 using ftrip.io.user_service.Accounts.Utilities;
 using Moq;
+using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace ftrip.io.user_service.unit_tests.Accounts.UseCases.ChangePassword
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
         private readonly Mock<IStringManager> _stringManagerMock = new Mock<IStringManager>();
+        private readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
         private readonly ChangePasswordRequestHandler _handler;
 
@@ -27,7 +29,8 @@ namespace ftrip.io.user_service.unit_tests.Accounts.UseCases.ChangePassword
             _handler = new ChangePasswordRequestHandler(
                 _unitOfWorkMock.Object,
                 _accountRepositoryMock.Object,
-                _stringManagerMock.Object
+                _stringManagerMock.Object,
+                _loggerMock.Object
             );
         }
 
