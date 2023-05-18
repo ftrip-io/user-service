@@ -9,6 +9,7 @@ using ftrip.io.user_service.Auth.UseCases.Authenticate;
 using ftrip.io.user_service.Users;
 using ftrip.io.user_service.Users.Domain;
 using Moq;
+using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace ftrip.io.user_service.unit_tests.Auth.UseCases.Authenticate
         private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
         private readonly Mock<IStringManager> _stringManagerMock = new Mock<IStringManager>();
         private readonly Mock<ISecretsManager> _secretsManagerMock = new Mock<ISecretsManager>();
+        private readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
         private readonly AuthenticateRequestHandler _handler;
 
@@ -31,7 +33,8 @@ namespace ftrip.io.user_service.unit_tests.Auth.UseCases.Authenticate
                 _accountRepositoryMock.Object,
                 _userRepositoryMock.Object,
                 _stringManagerMock.Object,
-                _secretsManagerMock.Object
+                _secretsManagerMock.Object,
+                _loggerMock.Object
             );
         }
 

@@ -4,6 +4,7 @@ using ftrip.io.framework.Persistence.Contracts;
 using ftrip.io.user_service.Accounts.Domain;
 using ftrip.io.user_service.Accounts.Utilities;
 using MediatR;
+using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,15 +16,18 @@ namespace ftrip.io.user_service.Accounts.UseCases.ChangePassword
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAccountRepository _accountRepository;
         private readonly IStringManager _stringManager;
+        private readonly ILogger _logger;
 
         public ChangePasswordRequestHandler(
             IUnitOfWork unitOfWork,
             IAccountRepository accountRepository,
-            IStringManager stringManager)
+            IStringManager stringManager,
+            ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _accountRepository = accountRepository;
             _stringManager = stringManager;
+            _logger = logger;
         }
 
         public async Task<CredentialsAccount> Handle(ChangePasswordRequest request, CancellationToken cancellationToken)
@@ -36,7 +40,7 @@ namespace ftrip.io.user_service.Accounts.UseCases.ChangePassword
             account.Salt = RandomStringGenerator.Generate(32);
             account.HashedPassword = PasswordHasher.Hash(request.NewPassword, account.Salt);
 
-            await _accountRepository.Update(account, cancellationToken);
+            await UpdateAccount(account, cancellationToken);
             await _unitOfWork.Commit(cancellationToken);
 
             return account;
@@ -47,6 +51,7 @@ namespace ftrip.io.user_service.Accounts.UseCases.ChangePassword
             var account = await _accountRepository.ReadByUserId(userId, cancellationToken);
             if (account == null)
             {
+                _logger.Error("Cannot update password because user is not found - UserId[{UserId}]", userId);
                 throw new MissingEntityException(_stringManager.Format("Common_MissingEntity", userId));
             }
 
@@ -58,8 +63,16 @@ namespace ftrip.io.user_service.Accounts.UseCases.ChangePassword
             var passwordMatches = PasswordHasher.Hash(currentPassword, account.Salt) == account.HashedPassword;
             if (!passwordMatches)
             {
+                _logger.Error("Cannot update password because passed current is not valid - UserId[{UserId}]", account.UserId);
                 throw new BadLogicException(_stringManager.GetString("Accounts_Validation_InvalidCurrentPassword"));
             }
+        }
+
+        private async Task UpdateAccount(CredentialsAccount account, CancellationToken cancellationToken)
+        {
+            await _accountRepository.Update(account, cancellationToken);
+
+            _logger.Information("Password updated - UserId[{UserId}]", account.UserId);
         }
     }
 }
