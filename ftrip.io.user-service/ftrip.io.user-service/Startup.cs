@@ -1,4 +1,5 @@
 using ftrip.io.framework.auth;
+using ftrip.io.framework.Correlation;
 using ftrip.io.framework.CQRS;
 using ftrip.io.framework.ExceptionHandling.Extensions;
 using ftrip.io.framework.Globalization;
@@ -9,6 +10,7 @@ using ftrip.io.framework.messaging.Installers;
 using ftrip.io.framework.Persistence.Sql.Mariadb;
 using ftrip.io.framework.Secrets;
 using ftrip.io.framework.Swagger;
+using ftrip.io.framework.Tracing;
 using ftrip.io.framework.Validation;
 using ftrip.io.user_service.Installers;
 using ftrip.io.user_service.Persistence;
@@ -45,7 +47,13 @@ namespace ftrip.io.user_service
                     new JwtAuthenticationInstaller(services),
                     new MariadbInstaller<DatabaseContext>(services),
                     new MariadbHealthCheckInstaller(services),
-                    new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer)
+                    new RabbitMQInstaller<Startup>(services, RabbitMQInstallerType.Publisher | RabbitMQInstallerType.Consumer),
+                    new TracingInstaller(services, (tracingSettings) =>
+                    {
+                        tracingSettings.ApplicationLabel = "users";
+                        tracingSettings.ApplicationVersion = GetType().Assembly.GetName().Version?.ToString() ?? "unknown";
+                        tracingSettings.MachineName = Environment.MachineName;
+                    })
                 ).Install();
             }
 
@@ -54,7 +62,8 @@ namespace ftrip.io.user_service
                 new AutoMapperInstaller<Startup>(services),
                 new FluentValidationInstaller<Startup>(services),
                 new CQRSInstaller<Startup>(services),
-                new DependenciesIntaller(services)
+                new DependenciesIntaller(services),
+                new CorrelationInstaller(services)
             ).Install();
         }
 
@@ -81,6 +90,7 @@ namespace ftrip.io.user_service
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCorrelation();
             app.UseFtripioGlobalExceptionHandler();
 
             app.UseEndpoints(endpoints =>
