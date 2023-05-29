@@ -4,9 +4,9 @@
     ".NETCoreApp,Version=v3.1": {
       "ftrip.io.framework": {
         "type": "Direct",
-        "requested": "[2.6.0, )",
-        "resolved": "2.6.0",
-        "contentHash": "11obHp6ncAWmF6kZMumnK6LdDot0ef3aNb1vAJ7RbaU/6nGQ2K87KrmMIc94eKf4sHAytNrL0TzSZkW+UubMgg==",
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "4bQoVJEvPJ95Qz14Cjze8M2FKvHmzShlGEIgwkjNuOvGhm9O2JqOqXzLVWphu8ixaz76rJGAZlqOAba4CLIODQ==",
         "dependencies": {
           "AspNetCore.HealthChecks.MongoDb": "3.1.3",
           "AspNetCore.HealthChecks.MySql": "3.1.1",
@@ -14,6 +14,7 @@
           "AspNetCore.HealthChecks.UI.Client": "3.1.2",
           "AspNetCore.HealthChecks.UI.InMemory.Storage": "3.1.2",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.0",
+          "Castle.Core": "5.1.1",
           "FluentValidation.AspNetCore": "11.3.0",
           "MediatR": "11.1.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
@@ -41,15 +42,15 @@
       },
       "ftrip.io.framework.messaging": {
         "type": "Direct",
-        "requested": "[2.6.0, )",
-        "resolved": "2.6.0",
-        "contentHash": "YYHzStJuYLWIg8UBFGftaSYF5rrCxX6NYn85vOsFwt36NNy/HsGNunBIICM3ZJAzMM0f9jBmr4PO3O0xjPs6kQ==",
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "AU3cMXD3i+Sljsqj4WXtj3jKy0dAXlCx+CuN4VFj5shUaJk5wpxBACP2FVPvlYNnT8DGOXESN0zFuvyR5T52WQ==",
         "dependencies": {
           "MassTransit": "7.3.1",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.Extensions.DependencyInjection": "7.3.1",
           "MassTransit.RabbitMQ": "7.3.1",
-          "ftrip.io.framework": "2.6.0"
+          "ftrip.io.framework": "2.6.1"
         }
       },
       "AspNetCore.HealthChecks.MongoDb": {
@@ -152,6 +153,14 @@
         "contentHash": "dGCVuVo0CFUKWW85W8YENO+aREf8sCBDjvGbnNvxJuNW4Ss+brEU9ltHhq2KfZze2VUNK1/wygbPG1bmbpyXEw==",
         "dependencies": {
           "AWSSDK.Core": "[3.7.100.14, 4.0.0)"
+        }
+      },
+      "Castle.Core": {
+        "type": "Transitive",
+        "resolved": "5.1.1",
+        "contentHash": "rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
+        "dependencies": {
+          "System.Diagnostics.EventLog": "4.7.0"
         }
       },
       "DnsClient": {
@@ -1391,6 +1400,16 @@
         "dependencies": {
           "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
+      "System.Diagnostics.EventLog": {
+        "type": "Transitive",
+        "resolved": "4.7.0",
+        "contentHash": "iDoKGQcRwX0qwY+eAEkaJGae0d/lHlxtslO+t8pJWAUxlvY3tqLtVOPnW2UU4cFjP0Y/L1QBqhkZfSyGqVMR2w==",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.Win32.Registry": "4.7.0",
+          "System.Security.Principal.Windows": "4.7.0"
         }
       },
       "System.Diagnostics.Tools": {

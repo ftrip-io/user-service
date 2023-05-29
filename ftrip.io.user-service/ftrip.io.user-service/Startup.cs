@@ -8,6 +8,7 @@ using ftrip.io.framework.Installers;
 using ftrip.io.framework.Mapping;
 using ftrip.io.framework.messaging.Installers;
 using ftrip.io.framework.Persistence.Sql.Mariadb;
+using ftrip.io.framework.Proxies;
 using ftrip.io.framework.Secrets;
 using ftrip.io.framework.Swagger;
 using ftrip.io.framework.Tracing;
@@ -63,7 +64,8 @@ namespace ftrip.io.user_service
                 new FluentValidationInstaller<Startup>(services),
                 new CQRSInstaller<Startup>(services),
                 new DependenciesIntaller(services),
-                new CorrelationInstaller(services)
+                new CorrelationInstaller(services),
+                new ProxyGeneratorInstaller(services)
             ).Install();
         }
 
