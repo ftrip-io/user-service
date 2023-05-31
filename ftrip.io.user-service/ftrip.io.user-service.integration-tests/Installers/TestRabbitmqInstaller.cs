@@ -34,7 +34,7 @@ namespace ftrip.io.user_service.integration_tests.Installers
         public void Install()
         {
             _services.AddSingleton(typeof(RabbitMQSettings), _settings);
-            _services.AddSingleton<IMessagePublisher, MessagePublisher>();
+            _services.AddScoped<IMessagePublisher, MessagePublisher>();
             _services.AddSingleton(new QueuesForEvent());
 
             _services.AddMassTransit(x =>

@@ -38,6 +38,9 @@
 
         "GRAFANA_LOKI_URL": "http://localhost:3100",
 
+        "JAEGER_SERVER": "localhost",
+        "JAEGER_PORT": "6831",
+
         "API_PREFIX": "",
 
         "API_PROXY_URL": "http://localhost:3000",
