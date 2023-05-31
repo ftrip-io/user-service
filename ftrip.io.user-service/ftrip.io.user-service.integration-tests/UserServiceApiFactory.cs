@@ -46,7 +46,8 @@ namespace ftrip.io.user_service.integration_tests
                     new EnvironmentInstaller(),
                     new FakeJwtInstaller(services),
                     new TestMariadbInstaller(services, _mariadbSettings),
-                    new TestRabbitmqInstaller(services, _rabbitmqSettings)
+                    new TestRabbitmqInstaller(services, _rabbitmqSettings),
+                    new TestTracerInstaller(services)
                 ).Install();
             });
         }
