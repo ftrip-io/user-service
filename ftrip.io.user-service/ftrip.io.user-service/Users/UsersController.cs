@@ -1,6 +1,7 @@
 ﻿using ftrip.io.user_service.Attributes;
 using ftrip.io.user_service.Users.UseCases.CreateUser;
 using ftrip.io.user_service.Users.UseCases.ReadById;
+using ftrip.io.user_service.Users.UseCases.ReadByIds;
 using ftrip.io.user_service.Users.UseCases.UpdateUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,12 @@ namespace ftrip.io.user_service.Users
         public UsersController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ReadByIds([FromQuery] Guid[] userIds, CancellationToken cancellationToken = default)
+        {
+            return Ok(await _mediator.Send(new ReadByIdsQuery() { Ids = userIds }, cancellationToken));
         }
 
         [HttpGet("{userId}")]
