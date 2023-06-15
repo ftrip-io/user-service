@@ -1,18 +1,17 @@
 ﻿using FluentAssertions;
 using ftrip.io.framework.ExceptionHandling.Exceptions;
-using ftrip.io.framework.Globalization;
 using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.Persistence.Contracts;
+using ftrip.io.user_service.contracts.Users.Events;
 using ftrip.io.user_service.Users;
 using ftrip.io.user_service.Users.Domain;
 using ftrip.io.user_service.Users.UseCases.UpdateUser;
-using ftrip.io.user_service.contracts.Users.Events;
 using Moq;
+using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using Serilog;
 
 namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
 {
@@ -20,7 +19,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
     {
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
-        private readonly Mock<IStringManager> _stringManagerMock = new Mock<IStringManager>();
+        private readonly Mock<IUserQueryHelper> _userQueryHelperMock = new Mock<IUserQueryHelper>();
         private readonly Mock<IMessagePublisher> _messagePublisherMock = new Mock<IMessagePublisher>();
         private readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
@@ -31,7 +30,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
             _handler = new UpdateUserRequestHandler(
                 _unitOfWorkMock.Object,
                 _userRepositoryMock.Object,
-                _stringManagerMock.Object,
+                _userQueryHelperMock.Object,
                 _messagePublisherMock.Object,
                 _loggerMock.Object
             );
@@ -42,6 +41,10 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
         {
             // Arrange
             var request = GetUpdateUserRequest();
+
+            _userQueryHelperMock
+                .Setup(qh => qh.ReadOrThrow(It.Is((Guid id) => id == request.Id), It.IsAny<CancellationToken>()))
+                .Throws(new MissingEntityException());
 
             // Act
             Func<Task> handleAction = () => _handler.Handle(request, CancellationToken.None);
@@ -57,8 +60,8 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
             // Arrange
             var request = GetUpdateUserRequest();
 
-            _userRepositoryMock
-                .Setup(r => r.Read(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+            _userQueryHelperMock
+                .Setup(qh => qh.ReadOrThrow(It.Is((Guid id) => id == request.Id), It.IsAny<CancellationToken>()))
                 .Returns((Guid id, CancellationToken _) =>
                     Task.FromResult(new User()
                     {
@@ -67,8 +70,7 @@ namespace ftrip.io.user_service.unit_tests.Users.UseCases.UpdateUser
                         LastName = "Testic",
                         Email = "test@test.com",
                         City = "Test"
-                    })
-                );
+                    }));
 
             _userRepositoryMock
                .Setup(r => r.Update(It.IsAny<User>(), It.IsAny<CancellationToken>()))

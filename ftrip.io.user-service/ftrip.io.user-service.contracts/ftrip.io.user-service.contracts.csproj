@@ -22,7 +22,9 @@
 
     <PackageTags>ftrip.io, user-service, contracts</PackageTags>
 
-    <PackageReleaseNotes>Initial version with User events.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added user deleted event.</PackageReleaseNotes>
+
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
