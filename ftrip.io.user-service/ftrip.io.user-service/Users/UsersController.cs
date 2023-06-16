@@ -1,5 +1,6 @@
 ﻿using ftrip.io.user_service.Attributes;
 using ftrip.io.user_service.Users.UseCases.CreateUser;
+using ftrip.io.user_service.Users.UseCases.DeleteUser;
 using ftrip.io.user_service.Users.UseCases.ReadById;
 using ftrip.io.user_service.Users.UseCases.ReadByIds;
 using ftrip.io.user_service.Users.UseCases.UpdateUser;
@@ -48,6 +49,14 @@ namespace ftrip.io.user_service.Users
         {
             request.Id = userId;
             return Ok(await _mediator.Send(request, cancellationToken));
+        }
+
+        [Authorize]
+        [UserSpecific]
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(Guid userId, CancellationToken cancellationToken = default)
+        {
+            return Ok(await _mediator.Send(new DeleteUserRequest() { UserId = userId }, cancellationToken));
         }
     }
 }

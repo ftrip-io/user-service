@@ -1,6 +1,7 @@
 ﻿using ftrip.io.framework.Installers;
 using ftrip.io.framework.Proxies;
 using ftrip.io.user_service.Accounts;
+using ftrip.io.user_service.Reservations;
 using ftrip.io.user_service.Users;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,9 @@ namespace ftrip.io.user_service.Installers
         {
             _services.AddProxiedScoped<IAccountRepository, AccountRepository>();
             _services.AddProxiedScoped<IUserRepository, UserRepository>();
+            _services.AddProxiedScoped<IUserQueryHelper, UserQueryHelper>();
+
+            _services.AddScoped<IReservationsQueryHelper, ReservationsQueryHelper>();
         }
     }
 }

@@ -1,12 +1,9 @@
-﻿using ftrip.io.framework.ExceptionHandling.Exceptions;
-using ftrip.io.framework.Globalization;
-using ftrip.io.framework.messaging.Publisher;
+﻿using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.Persistence.Contracts;
 using ftrip.io.user_service.contracts.Users.Events;
 using ftrip.io.user_service.Users.Domain;
 using MediatR;
 using Serilog;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,20 +13,20 @@ namespace ftrip.io.user_service.Users.UseCases.UpdateUser
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
-        private readonly IStringManager _stringManager;
+        private readonly IUserQueryHelper _userQueryHelper;
         private readonly IMessagePublisher _messagePublisher;
         private readonly ILogger _logger;
 
         public UpdateUserRequestHandler(
             IUnitOfWork unitOfWork,
             IUserRepository userRepository,
-            IStringManager stringManager,
+            IUserQueryHelper userQueryHelper,
             IMessagePublisher messagePublisher,
             ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
-            _stringManager = stringManager;
+            _userQueryHelper = userQueryHelper;
             _messagePublisher = messagePublisher;
             _logger = logger;
         }
@@ -38,7 +35,7 @@ namespace ftrip.io.user_service.Users.UseCases.UpdateUser
         {
             await _unitOfWork.Begin(cancellationToken);
 
-            var existingUser = await ReadOrThrow(request.Id, cancellationToken);
+            var existingUser = await _userQueryHelper.ReadOrThrow(request.Id, cancellationToken);
             existingUser.FirstName = request.FirstName;
             existingUser.LastName = request.LastName;
             existingUser.Email = request.Email;
@@ -50,18 +47,6 @@ namespace ftrip.io.user_service.Users.UseCases.UpdateUser
             await PublishUserUpdatedEvent(existingUser, cancellationToken);
 
             return existingUser;
-        }
-
-        private async Task<User> ReadOrThrow(Guid userId, CancellationToken cancellationToken)
-        {
-            var user = await _userRepository.Read(userId, cancellationToken);
-            if (user == null)
-            {
-                _logger.Error("Cannot update user because it is not found - UserId[{UserId}]", userId);
-                throw new MissingEntityException(_stringManager.Format("Common_MissingEntity", userId));
-            }
-
-            return user;
         }
 
         private async Task<User> UpdateUser(User user, CancellationToken cancellationToken)
