@@ -12,6 +12,7 @@ using ftrip.io.framework.Proxies;
 using ftrip.io.framework.Secrets;
 using ftrip.io.framework.Swagger;
 using ftrip.io.framework.Tracing;
+using ftrip.io.framework.Utilities;
 using ftrip.io.framework.Validation;
 using ftrip.io.user_service.Installers;
 using ftrip.io.user_service.Persistence;
@@ -22,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
+using System.Net.Http;
 
 namespace ftrip.io.user_service
 {
@@ -67,6 +69,11 @@ namespace ftrip.io.user_service
                 new CorrelationInstaller(services),
                 new ProxyGeneratorInstaller(services)
             ).Install();
+
+            services.AddHttpClient("BookingService", (HttpClient client) =>
+            {
+                client.BaseAddress = new Uri(EnvReader.GetEnvVariableOrThrow("BOOKING_SERVICE_URL"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -144,4 +144,7 @@
   <data name="Common_Validation_FieldMustContainAlphaNumChars" xml:space="preserve">
     <value>{0} can only contain alpha numerical characters.</value>
   </data>
+  <data name="Users_CannotDeleteBecauseOfActiveReservations" xml:space="preserve">
+    <value>Cannot delete user with id {0} because of active reservations.</value>
+  </data>
 </root>
