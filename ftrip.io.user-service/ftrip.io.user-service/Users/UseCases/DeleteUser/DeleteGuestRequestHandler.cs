@@ -45,7 +45,7 @@ namespace ftrip.io.user_service.Users.UseCases.DeleteUser
 
             var deletedUser = await _userRepository.Delete(request.GuestId, cancellationToken);
 
-            await _unitOfWork.Rollback(cancellationToken);
+            await _unitOfWork.Commit(cancellationToken);
 
             await PublishUserDeletedEvent(deletedUser, cancellationToken);
 
