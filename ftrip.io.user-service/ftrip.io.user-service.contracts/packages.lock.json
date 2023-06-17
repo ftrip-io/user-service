@@ -4,9 +4,9 @@
     ".NETCoreApp,Version=v3.1": {
       "ftrip.io.framework": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "4bQoVJEvPJ95Qz14Cjze8M2FKvHmzShlGEIgwkjNuOvGhm9O2JqOqXzLVWphu8ixaz76rJGAZlqOAba4CLIODQ==",
+        "requested": "[2.7.0, )",
+        "resolved": "2.7.0",
+        "contentHash": "yPuZDDXxKnzkKcQ8YIj3ZMyxfe95LeI5sgzJ/zLtPecyFMYR+SYyP//xt0WI3EZc+wInix/yRTeS95vdju2Ilg==",
         "dependencies": {
           "AspNetCore.HealthChecks.MongoDb": "3.1.3",
           "AspNetCore.HealthChecks.MySql": "3.1.1",
@@ -37,20 +37,21 @@
           "Serilog.Sinks.Console": "4.1.0",
           "Serilog.Sinks.Grafana.Loki": "8.1.0",
           "Swashbuckle.AspNetCore": "6.5.0",
-          "Swashbuckle.AspNetCore.Filters": "7.0.6"
+          "Swashbuckle.AspNetCore.Filters": "7.0.6",
+          "prometheus-net.AspNetCore": "3.5.0"
         }
       },
       "ftrip.io.framework.messaging": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "AU3cMXD3i+Sljsqj4WXtj3jKy0dAXlCx+CuN4VFj5shUaJk5wpxBACP2FVPvlYNnT8DGOXESN0zFuvyR5T52WQ==",
+        "requested": "[2.7.0, )",
+        "resolved": "2.7.0",
+        "contentHash": "qNUTU+RzR86ky+kGd/zSnXzeQUPqoGOAOKW4Od1dny1itlWnOpVxKFiOg6pycf9ikbFi42wXWTM3QAWGJYoqYA==",
         "dependencies": {
           "MassTransit": "7.3.1",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.Extensions.DependencyInjection": "7.3.1",
           "MassTransit.RabbitMQ": "7.3.1",
-          "ftrip.io.framework": "2.6.1"
+          "ftrip.io.framework": "2.7.0"
         }
       },
       "AspNetCore.HealthChecks.MongoDb": {
@@ -932,6 +933,19 @@
         "type": "Transitive",
         "resolved": "1.8.1.3",
         "contentHash": "1jUpszv0ETm+hl78HKnYgY3wPzt6qRtjxaPENNrGCuB8nondbR/j75WAKdd6sxXzOzBcX07WMZhZEYc4s5jVWg=="
+      },
+      "prometheus-net": {
+        "type": "Transitive",
+        "resolved": "3.5.0",
+        "contentHash": "8f9TyVpT8jy4Yp5GoHwj45t17l4fuJq3/sXXsuaX/iB5HmX9mZoVn2Bb6pGyCzImL+Z15KgBcJmRHlYEF5f98g=="
+      },
+      "prometheus-net.AspNetCore": {
+        "type": "Transitive",
+        "resolved": "3.5.0",
+        "contentHash": "OyNpmFHzENOqYbqZiaxlcGc17PFdCSr06S9eqm5HRUokNrL/51dty6qi+l7eb9uFismUPGw28aRivrA49Do+gA==",
+        "dependencies": {
+          "prometheus-net": "3.5.0"
+        }
       },
       "RabbitMQ.Client": {
         "type": "Transitive",
