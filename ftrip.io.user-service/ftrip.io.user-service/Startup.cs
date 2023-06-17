@@ -7,6 +7,7 @@ using ftrip.io.framework.HealthCheck;
 using ftrip.io.framework.Installers;
 using ftrip.io.framework.Mapping;
 using ftrip.io.framework.messaging.Installers;
+using ftrip.io.framework.Metrics;
 using ftrip.io.framework.Persistence.Sql.Mariadb;
 using ftrip.io.framework.Proxies;
 using ftrip.io.framework.Secrets;
@@ -29,19 +30,20 @@ namespace ftrip.io.user_service
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private bool InTestMode { get => Environment.GetEnvironmentVariable("IN_TEST_MODE") != null; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            if (Environment.GetEnvironmentVariable("IN_TEST_MODE") == null)
+            if (!InTestMode)
             {
                 InstallerCollection.With(
                     new SwaggerInstaller<Startup>(services),
@@ -56,7 +58,8 @@ namespace ftrip.io.user_service
                         tracingSettings.ApplicationLabel = "users";
                         tracingSettings.ApplicationVersion = GetType().Assembly.GetName().Version?.ToString() ?? "unknown";
                         tracingSettings.MachineName = Environment.MachineName;
-                    })
+                    }),
+                    new MetricsInstaller(services)
                 ).Install();
             }
 
@@ -90,6 +93,11 @@ namespace ftrip.io.user_service
 
             app.UseRouting();
 
+            if (!InTestMode)
+            {
+                app.UseMetrics();
+            }
+
             app.UseCors(policy => policy
                 .WithOrigins(Environment.GetEnvironmentVariable("API_PROXY_URL"))
                 .AllowAnyMethod()
@@ -107,8 +115,11 @@ namespace ftrip.io.user_service
                 endpoints.MapControllers();
             });
 
-            app.UseFtripioSwagger(Configuration.GetSection(nameof(SwaggerUISettings)).Get<SwaggerUISettings>());
-            app.UseFtripioHealthCheckUI(Configuration.GetSection(nameof(HealthCheckUISettings)).Get<HealthCheckUISettings>());
+            if (!InTestMode)
+            {
+                app.UseFtripioSwagger(Configuration.GetSection(nameof(SwaggerUISettings)).Get<SwaggerUISettings>());
+                app.UseFtripioHealthCheckUI(Configuration.GetSection(nameof(HealthCheckUISettings)).Get<HealthCheckUISettings>());
+            }
         }
     }
 }
