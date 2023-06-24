@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ftrip.ip.user_service.contracts</RootNamespace>
+    <RootNamespace>ftrip.io.user_service.contracts</RootNamespace>
 
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 
@@ -22,9 +22,9 @@
 
     <PackageTags>ftrip.io, user-service, contracts</PackageTags>
 
-    <PackageReleaseNotes>Added user deleted event.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed namespace for UserDeleted event.</PackageReleaseNotes>
 
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">

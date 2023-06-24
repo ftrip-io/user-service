@@ -1,7 +1,7 @@
 ﻿using ftrip.io.framework.Domain;
 using System;
 
-namespace ftrip.ip.user_service.contracts.Users.Events
+namespace ftrip.io.user_service.contracts.Users.Events
 {
     public class UserDeletedEvent : Event<string>
     {
