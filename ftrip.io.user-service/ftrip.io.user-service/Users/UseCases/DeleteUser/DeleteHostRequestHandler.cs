@@ -4,7 +4,7 @@ using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.Persistence.Contracts;
 using ftrip.io.user_service.Reservations;
 using ftrip.io.user_service.Users.Domain;
-using ftrip.ip.user_service.contracts.Users.Events;
+using ftrip.io.user_service.contracts.Users.Events;
 using MediatR;
 using Serilog;
 using System.Threading;
