@@ -4,9 +4,9 @@
     ".NETCoreApp,Version=v3.1": {
       "ftrip.io.framework": {
         "type": "Direct",
-        "requested": "[2.7.0, )",
-        "resolved": "2.7.0",
-        "contentHash": "yPuZDDXxKnzkKcQ8YIj3ZMyxfe95LeI5sgzJ/zLtPecyFMYR+SYyP//xt0WI3EZc+wInix/yRTeS95vdju2Ilg==",
+        "requested": "[2.7.1, )",
+        "resolved": "2.7.1",
+        "contentHash": "4eWWWO46oHEsYzWsY5jSfRAmIz4GYbfpsuOZxnyZV09u4Oxsys8EY5yGcCpZgT/JQWf6y9G28obO5Fw8BjmnYw==",
         "dependencies": {
           "AspNetCore.HealthChecks.MongoDb": "3.1.3",
           "AspNetCore.HealthChecks.MySql": "3.1.1",
@@ -43,15 +43,15 @@
       },
       "ftrip.io.framework.messaging": {
         "type": "Direct",
-        "requested": "[2.7.0, )",
-        "resolved": "2.7.0",
-        "contentHash": "qNUTU+RzR86ky+kGd/zSnXzeQUPqoGOAOKW4Od1dny1itlWnOpVxKFiOg6pycf9ikbFi42wXWTM3QAWGJYoqYA==",
+        "requested": "[2.7.1, )",
+        "resolved": "2.7.1",
+        "contentHash": "fpjLIxWfiNi8gafSmRkCP/iEqFUlpvb3fUAWGViB6u2TN8oUgwL9DG0SdO//njbtWBOGf9uUO2axm61S7/HaAw==",
         "dependencies": {
           "MassTransit": "7.3.1",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.Extensions.DependencyInjection": "7.3.1",
           "MassTransit.RabbitMQ": "7.3.1",
-          "ftrip.io.framework": "2.7.0"
+          "ftrip.io.framework": "2.7.1"
         }
       },
       "AspNetCore.HealthChecks.MongoDb": {
