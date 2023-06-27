@@ -19,8 +19,7 @@ RUN dotnet publish -c $CONFIGURATION -o out ftrip.io.user-service/ftrip.io.user-
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS final
 WORKDIR /app
 
-RUN addgroup --system ftrip-io
-RUN adduser --system user-service
+RUN addgroup --system ftrip-io && adduser --system user-service
 
 COPY --from=build --chown=user-service:ftrip-io --chmod=777 /build/out .
 
