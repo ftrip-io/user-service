@@ -11,6 +11,8 @@ jobs:
   hadolint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - uses: ftrip-io/github-ci/hadolint@bb917a63506cbb7b428ad081c63cb3e59820666b
         with:
           dockerfile: ftrip.io.user-service/Dockerfile
